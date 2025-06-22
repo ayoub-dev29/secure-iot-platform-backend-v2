@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: backend-service-ingress
+  annotations:
+    # The old 'kubernetes.io/ingress.class' annotation is removed.
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  # This new field explicitly tells Kubernetes to use the 'alb' ingress controller.
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: backend-service-svc # The name of our backend service
+                port:
+                  number: 80 # The port on our backend service

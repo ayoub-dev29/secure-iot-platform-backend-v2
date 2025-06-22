@@ -1,0 +1,13 @@
+# k8s/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service-svc
+spec:
+  type: ClusterIP # Only reachable inside the cluster
+  selector:
+    app: backend-service # This selector must match the labels on our pods
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
